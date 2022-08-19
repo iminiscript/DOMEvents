@@ -242,3 +242,27 @@ const sliderFun = function() {
 };
 
 sliderFun();
+
+
+// Mutation observer 
+const headerTitle = document.querySelector('.header__title');
+setTimeout(() => {
+  const headerTitleChild = document.createElement("h4");
+  headerTitleChild.textContent = `JavaScript creates this element after 10 seconds, and the new MutationObserver watches it
+  Once this Element is created and added to the DOM, we will change its color`;
+  headerTitleChild.classList.add('newChildElement');
+  headerTitle.append(headerTitleChild);
+
+}, 10000);
+
+
+const titleObserver = new MutationObserver((mutations, observe) => {
+  const title = document.querySelector(".newChildElement");
+  title.style.color = '#f00606';
+  observe.disconnect();
+});
+
+titleObserver.observe(headerTitle, {
+  childList: true,
+  subtree: true
+});
